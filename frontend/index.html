@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pagina principal de una tienda online basica creada con HTML, CSS, JavaScript y Bootstrap."
+    />
+    <title>Tienda Online Basica</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/estilos.css" />
+  </head>
+
+  <body>
+    <!-- Barra de navegacion principal -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">Mi Tienda</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal"
+          aria-expanded="false"
+          aria-label="Abrir menu de navegacion"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html"
+                >Inicio</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ayuda.html">Ayuda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Seccion principal de bienvenida -->
+      <section class="bg-light py-5">
+        <div class="container">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <h1 class="display-5 fw-bold">Bienvenido a Mi Tienda Online</h1>
+              <p class="lead">
+                Un ejemplo sencillo de pagina principal para aprender a crear
+                una tienda web con HTML, CSS, JavaScript y Bootstrap.
+              </p>
+              <a class="btn btn-primary btn-lg" href="#informacion"
+                >Ver informacion</a
+              >
+            </div>
+
+            <div class="col-lg-5">
+              <div class="p-4 bg-white border rounded text-center">
+                <h2 class="h4">Compra facil</h2>
+                <p class="mb-0">
+                  Aqui se podran mostrar productos, promociones y servicios de
+                  la tienda cuando el proyecto avance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjetas informativas de ejemplo -->
+      <section id="informacion" class="py-5">
+        <div class="container">
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Informacion de la tienda</h2>
+            <p class="text-muted">
+              Estas tarjetas son ejemplos iniciales. Todavia no se crea una
+              pagina de productos.
+            </p>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="card-title h5">Productos destacados</h3>
+                  <p class="card-text">
+                    Espacio para presentar articulos populares o recomendados
+                    de la tienda.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="card-title h5">Ofertas especiales</h3>
+                  <p class="card-text">
+                    Seccion de ejemplo para mostrar descuentos, promociones o
+                    novedades.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="card-title h5">Atencion al cliente</h3>
+                  <p class="card-text">
+                    Informacion basica para orientar al usuario y conectarlo con
+                    la pagina de contacto.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Pie de pagina basico -->
+    <footer class="bg-dark text-white text-center py-3">
+      <div class="container">
+        <p class="mb-0">
+          &copy; 2026 Mi Tienda Online. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <!-- JavaScript propio y Bootstrap por CDN -->
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
