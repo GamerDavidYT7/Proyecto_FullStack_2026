@@ -160,6 +160,47 @@ app.delete("/productos/:id", (req, res) => {
     });
 });
 
+// Iniciar sesion de usuario administrador
+app.post("/login", (req, res) => {
+    const { correo, password } = req.body;
+
+    if (!correo || !password) {
+        return res.status(400).json({
+            ok: false,
+            mensaje: "Correo y password son obligatorios"
+        });
+    }
+
+    const sql = `
+        SELECT id, nombre, correo, rol
+        FROM usuarios
+        WHERE correo = ? AND password = ?
+    `;
+
+    db.query(sql, [correo, password], (err, result) => {
+        if (err) {
+            console.error("Error SQL:", err);
+            return res.status(500).json({
+                ok: false,
+                mensaje: "Error en servidor"
+            });
+        }
+
+        if (result.length === 0) {
+            return res.status(401).json({
+                ok: false,
+                mensaje: "Credenciales incorrectas"
+            });
+        }
+
+        res.json({
+            ok: true,
+            mensaje: "Ingreso correcto",
+            usuario: result[0]
+        });
+    });
+});
+
 
 // Iniciar servidor
 app.listen(3000, () => {

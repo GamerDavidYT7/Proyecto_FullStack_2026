@@ -9,12 +9,15 @@ Este proyecto corresponde a una aplicación web **full stack** desarrollada con 
 
 La aplicación permite capturar información desde un formulario web, enviarla al servidor mediante JavaScript y almacenarla en una base de datos MySQL.
 
+Actualmente el sistema también cuenta con un **login básico administrativo**, usado para ingresar al panel de administración de productos.
+
 En este proyecto se integran los siguientes componentes:
 
 - **Frontend:** interfaz visual creada con HTML, CSS y JavaScript.
 - **Backend:** servidor desarrollado con Node.js y Express.
 - **Base de datos:** almacenamiento de la información en MySQL.
 - **Comunicación:** envío de datos mediante Fetch API en formato JSON.
+- **Login básico:** validación de usuario administrador contra MySQL.
 
 ---
 
@@ -26,6 +29,7 @@ En este proyecto se integran los siguientes componentes:
 | Backend | Node.js + Express |
 | Base de datos | MySQL |
 | Comunicación | Fetch API, HTTP y JSON |
+| Autenticación básica | Login con localStorage |
 | Editor recomendado | Visual Studio Code |
 | Servidor local frontend | Live Server |
 
@@ -43,6 +47,9 @@ TALLER_FULL_STACK_2026/
 │
 ├── frontend/
 │   ├── index.html
+│   ├── productos.html
+│   ├── admin-productos.html
+│   ├── login.html
 │   ├── contacto.html
 │   ├── ayuda.html
 │   ├── css/
@@ -146,6 +153,52 @@ Esta tabla permitirá almacenar los datos enviados desde el formulario del front
 
 ---
 
+## 🔐 Login administrativo básico
+
+El proyecto incluye una autenticación básica para fines académicos.
+
+El formulario de ingreso se encuentra en:
+
+```bash
+frontend/login.html
+```
+
+El archivo JavaScript que envía los datos al backend es:
+
+```bash
+frontend/js/login.js
+```
+
+El backend valida el usuario mediante la ruta:
+
+```text
+POST http://localhost:3000/login
+```
+
+Cuando el ingreso es correcto, el sistema guarda la información básica del usuario en `localStorage` con la clave:
+
+```text
+usuario
+```
+
+Luego el usuario es redirigido al panel administrativo:
+
+```bash
+frontend/admin-productos.html
+```
+
+La página administrativa está protegida con:
+
+```bash
+frontend/js/auth.js
+```
+
+Si no existe un usuario guardado en `localStorage`, el sistema redirige automáticamente hacia `login.html`.
+
+> Nota académica: este login es básico. No usa JWT ni cifrado de contraseñas todavía.
+
+---
+
 ## 🔌 Configuración de la conexión en Node.js
 
 La conexión con MySQL se configura en el archivo:
@@ -211,6 +264,20 @@ Respuesta al usuario
 6. MySQL almacena los datos.
 7. El backend devuelve una respuesta al frontend.
 
+Para el login administrativo, el flujo es:
+
+```text
+Formulario login.html
+      ↓
+JavaScript con fetch()
+      ↓
+Ruta POST /login en Express
+      ↓
+Tabla usuarios en MySQL
+      ↓
+Ingreso al panel administrativo
+```
+
 ---
 
 ## 🧪 Prueba del proyecto
@@ -236,6 +303,14 @@ SELECT * FROM contactos;
 ```
 
 Si la información aparece en la tabla, significa que la conexión entre frontend, backend y base de datos funciona correctamente.
+
+Para probar el login básico:
+
+1. Ejecutar el backend con `node server.js`.
+2. Abrir `frontend/login.html` con Live Server.
+3. Ingresar un correo y una contraseña existentes en la tabla `usuarios`.
+4. Si los datos son correctos, el sistema debe redirigir a `admin-productos.html`.
+5. Si no hay sesión iniciada, `admin-productos.html` debe redirigir nuevamente a `login.html`.
 
 ---
 
