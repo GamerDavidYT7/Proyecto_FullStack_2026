@@ -34,17 +34,17 @@ app.get("/", (req, res) => {
 // ✅ RUTA PARA GUARDAR DATOS
 app.post("/guardar", (req, res) => {
 
-    const { nombre, correo, telefono, mensaje } = req.body;
+    const { nombre, correo, asunto, mensaje } = req.body;
 
     console.log("Datos recibidos:", req.body);
 
-    if (!nombre || !correo || !telefono || !mensaje) {
+    if (!nombre || !correo || !asunto || !mensaje) {
         return res.status(400).send("Datos incompletos");
     }
 
-    const sql = "INSERT INTO contactos (nombre, correo, telefono, mensaje) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO contactos (nombre, correo, asunto, mensaje) VALUES (?, ?, ?, ?)";
 
-    db.query(sql, [nombre, correo, telefono, mensaje], (err, result) => {
+    db.query(sql, [nombre, correo, asunto, mensaje], (err, result) => {
         if (err) {
             console.error("Error SQL:", err);
             return res.status(500).send("Error en servidor");

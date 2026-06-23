@@ -13,48 +13,52 @@ if (formulario) {
 
         const nombre = document.getElementById("nombre").value;
         const correo = document.getElementById("correo").value;
-        const telefono = document.getElementById("telefono").value;
+        const asunto = document.getElementById("asunto").value;
         const mensaje = document.getElementById("mensaje").value;
 
         console.log("Nombre:", nombre);
         console.log("Correo:", correo);
-        console.log("Teléfono:", telefono);
+        console.log("Asunto:", asunto);
         console.log("Mensaje:", mensaje);
 
         const respuesta = document.getElementById("respuesta");
 
         // Validación
-        if (nombre === "" || correo === "" || telefono === "" || mensaje === "") {
+        if (nombre.trim() === "" || correo.trim() === "" || asunto.trim() === "" || mensaje.trim() === "") {
             respuesta.textContent = "Todos los campos son obligatorios.";
             return;
         }
 
         // ENVIAR AL BACKEND
-        fetch("http://localhost:3000/guardar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nombre: nombre,
-                correo: correo,
-                telefono: telefono,
-                mensaje: mensaje
-            })
-        })
-        .then(res => res.text())
-        .then(data => {
-            console.log("Respuesta servidor:", data);
-            respuesta.textContent = "Datos guardados en MySQL correctamente";
-            formulario.reset();
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            respuesta.textContent = "Error al guardar los datos";
-        });
+        async function enviarDatos() {
+            try {
+                const respuesta = await fetch("http://localhost:3000/guardar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        correo: correo,
+                        asunto: asunto,
+                        mensaje: mensaje
+                    })
+                });
 
+                const datos = await respuesta.text();
+                console.log("Respuesta servidor:", datos);
+                respuesta.textContent = "Datos guardados en MySQL correctamente";
+                formulario.reset();
+            } catch (error) {
+                console.error("Error:", error);
+                respuesta.textContent = "Error al guardar los datos";
+            }
+        }
+
+        enviarDatos();
     });
 }
+
 
 // Mostrar productos reales en productos.html
 const contenedorProductos = document.getElementById("contenedorProductos");
@@ -63,23 +67,22 @@ if (contenedorProductos) {
     cargarProductos();
 }
 
-function cargarProductos() {
-    fetch("http://localhost:3000/productos")
-        .then((respuesta) => respuesta.json())
-        .then((productos) => {
-            console.log("Productos recibidos:", productos);
-            mostrarProductosEnCatalogo(productos);
-        })
-        .catch((error) => {
-            console.error("Error al cargar productos:", error);
-            contenedorProductos.innerHTML = `
-                <div class="col-12">
-                    <div class="alert alert-danger text-center">
-                        No se pudieron cargar los productos.
-                    </div>
+async function cargarProductos() {
+    try {
+        const respuesta = await fetch("http://localhost:3000/productos");
+        const productos = await respuesta.json();
+        console.log("Productos recibidos:", productos);
+        mostrarProductosEnCatalogo(productos);
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+        contenedorProductos.innerHTML = `
+            <div class="col-12">
+                <div class="alert alert-danger text-center">
+                    No se pudieron cargar los productos.
                 </div>
-            `;
-        });
+            </div>
+        `;
+    }
 }
 
 function mostrarProductosEnCatalogo(productos) {
