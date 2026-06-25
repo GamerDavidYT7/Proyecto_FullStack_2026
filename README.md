@@ -99,9 +99,17 @@ Proyecto_FullStack_2026/
 │
 ├──video/
 │
-├── database/
+├── .gitattributes
 │
-└── README.md
+├── .gitignore
+│
+├── AGENTS.md
+│
+├── Documentacion.pdf
+│
+├── README.md
+│
+└── README_TALLER_FULL_STACK_2026.md
 ```
 
 ---
